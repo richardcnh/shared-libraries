@@ -7,7 +7,6 @@ def call(String channel) {
         return
     }
 
-
     slackSend(
         message: "$REPO_NAME (${env.BRANCH_NAME}) - Job Started (<${env.BUILD_URL}|${env.BUILD_DISPLAY_NAME}>)",
         channel: channel

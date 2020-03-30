@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
 
-def call(squadName) {
-    def SLACK_CHANNEL_SQUAD_TEMPLATE = "#sdc-mobile-{0}"
-    def SLACK_CHANNEL_ANDROID_APK = "#android-builds"
+def call(String squadName) {
+    def SQUAD_SLACK_CHANNEL_TEMPLATE = "#sdc-mobile-{0}"
+    def ANDROID_APK_SLACK_CHANNEL = "#android-builds"
     def ALL_VALID_SQUADS = ['core', 'guest', 'local', 'registry']
     def squads = ALL_VALID_SQUADS
     def channels = []
@@ -12,11 +12,11 @@ def call(squadName) {
     }
 
     for (squad in squads) {
-        channels << SLACK_CHANNEL_SQUAD_TEMPLATE.replace("{0}", squad)
+        channels << SQUAD_SLACK_CHANNEL_TEMPLATE.replace("{0}", squad)
     }
 
     if (ALL_VALID_SQUADS.size() == channels.size()) {
-        squads << SLACK_CHANNEL_ANDROID_APK
+        squads << ANDROID_APK_SLACK_CHANNEL
     }
 
     return channels

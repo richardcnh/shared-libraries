@@ -6,7 +6,7 @@
  * @param {Integer} maxLogCount Define the maximum changelog lines, default value is 9
  * @return {Array} array of changelog
  */
-def changelogsForSlack(maxLogCount = 9) {
+def changelogsForSlack(Integer maxLogCount = 9) {
     def buffer = []
     def PIVOTAL_TICKET_PATTERN = /(\#(\d{9}))/
     def JIRA_TICKET_PATTERN = /([A-Z]{3,10}\-\d{4,})/
@@ -43,7 +43,7 @@ def changelogsForSlack(maxLogCount = 9) {
     return buffer
 }
 
-def call(channel) {
+def call(channel, executedBuilds) {
     def SLACK_APK_TEMPLATE = """<{1}|Planner-{0}>"""
 
     if (!channel) {
@@ -81,7 +81,7 @@ def call(channel) {
                     ],
                     [
                         "title": "Artifacts",
-                        "value": "${reachTemplate(EXECUTED_BUILDS, SLACK_APK_TEMPLATE).join('\n')}",
+                        "value": "${reachTemplate(executedBuilds, SLACK_APK_TEMPLATE).join('\n')}",
                         "short": true
                     ],
                     [
