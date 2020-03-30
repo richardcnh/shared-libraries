@@ -7,7 +7,7 @@ def call(String channel) {
     }
 
     def elapsedTime = currentBuild.durationString.replace(' and counting', '');
-    def slackColor = result == 'SUCCESS' ? 'good' : 'danger';
+    def slackColor = currentBuild.result == 'SUCCESS' ? 'good' : 'danger';
 
     slackSend(
         color: slackColor,
