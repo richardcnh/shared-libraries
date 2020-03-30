@@ -8,9 +8,14 @@
  *   but I would like to extend it to something like "angan/190326-refactor_timeline",
  * Some examples as below:
  *   angan/190326-refactor_timeline => Planner-qa-190326-refactor_timeline-1.apk
- *   dev-core => Planner-stg-core-1.apk
- *   features/core-deep-link => Planner-stg-core-deep-link-1.apk
- *   test-deep-link => Planner-stg-test-deep-link-1.apk
+ *   dev-core                       => Planner-stg-core-1.apk
+ *   features/core-deep-link        => Planner-stg-core-deep-link-1.apk
+ *   test-deep-link                 => Planner-stg-test-deep-link-1.apk
+ *
+ *
+ * Dependencies:
+ *     - BRANCH_NAME
+ *     - BUILD_NUMBER
  */
 def call(String buildType) {
     def branchName = env.BRANCH_NAME

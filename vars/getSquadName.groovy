@@ -5,6 +5,9 @@
  *
  * @param {String} branchName Current built branch name
  * @return {String} squad name or empty string if can't find one
+ *
+ * Dependencies:
+ *     - BRANCH_NAME
  */
 def call(String branchName = '') {
     def BRANCH_DEV_PREFIX = 'dev-'

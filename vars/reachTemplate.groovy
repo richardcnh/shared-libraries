@@ -3,9 +3,12 @@
 
 /*
  * Common method to generate a new array based on the template.
- * @param {Array} builds: It's array's array, e.g. [['QA','https://link.com/qa']
- * @param {String} itemTemplate: Item template to generate New Array, It can use index to refer to the element in inner array, for example: {0} indicates QA, {1} indicates the link of https://link.com/qa
+ *
+ * @param {Array} builds, It's array's array, e.g. [['QA','https://link.com/qa']
+ * @param {String} itemTemplate, Item template to generate New Array, It can use index to refer to the element in inner array, for example: {0} indicates QA, {1} indicates the link of https://link.com/qa
  * @return {Array} It will return string array
+ *
+ * No Dependencies
  */
 def call(builds, itemTemplate) {
     def buffer = []

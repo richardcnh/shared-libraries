@@ -5,6 +5,9 @@
  *
  * @param {Integer} maxLogCount Define the maximum changelog lines, default value is 9
  * @return {Array} array of changelog
+ *
+ * Dependencies
+ *     - currentBuild
  */
 def changelogsForSlack(Integer maxLogCount = 9) {
     def buffer = []
@@ -43,6 +46,17 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     return buffer
 }
 
+
+/*
+ * Send build message with APK links
+ *
+ * @param {String} channel, It indicates which Slack channel(s) you would like to post
+ * @param {Array} executedBuilds, e.g. [['QA', 'https://applinks.com/qa.apk']]
+ *
+ * Dependencies:
+ *     - BRANCH_NAME
+ *     - BUILD_NUMBER
+ */
 def call(channel, executedBuilds) {
     def SLACK_APK_TEMPLATE = """<{1}|Planner-{0}>"""
 
