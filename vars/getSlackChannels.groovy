@@ -10,7 +10,7 @@
  */
 def call(String squadName) {
     def SQUAD_SLACK_CHANNEL_TEMPLATE = "#sdc-mobile-{0}"
-    def ANDROID_APK_SLACK_CHANNEL = "#android-builds"
+    def ANDROID_TEAM_SLACK_CHANNEL = "#android_planner_betas"
     def ALL_VALID_SQUADS = ['core', 'guest', 'local', 'registry']
     def squads = ALL_VALID_SQUADS
     def channels = []
@@ -24,7 +24,7 @@ def call(String squadName) {
     }
 
     if (ALL_VALID_SQUADS.size() == channels.size()) {
-        squads << ANDROID_APK_SLACK_CHANNEL
+        squads << ANDROID_TEAM_SLACK_CHANNEL
     }
 
     return channels
