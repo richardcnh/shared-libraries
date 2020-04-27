@@ -9,7 +9,7 @@
  * No Dependencies
  */
 def call(String squadName) {
-    def SQUAD_EMAIL_TEMPLATE = "android-planner-${squad}-build.group@xogrp.com"
+    def SQUAD_EMAIL_TEMPLATE = "android-planner-{0}-build.group@xogrp.com"
     def ANDROID_TEAM_EMAIL = "android-planner-betas.group@xogrp.com"
     def ALL_VALID_SQUADS = ['core', 'guest', 'local', 'registry']
     def squads = ALL_VALID_SQUADS
