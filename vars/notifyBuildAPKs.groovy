@@ -51,14 +51,16 @@ def changelogsForSlack(Integer maxLogCount = 9) {
  * Send build message with APK links
  *
  * @param {String} channel, It indicates which Slack channel(s) you would like to post
- * @param {Array} executedBuilds, e.g. [['QA', 'https://applinks.com/qa.apk']]
+ * @param {String} buildType, e.g. "QA"
+ * @param {String} apkURI, e.g. "https://applinks.com/qa.apk"
  *
  * Dependencies:
  *     - BRANCH_NAME
  *     - BUILD_NUMBER
  */
-def call(channel, executedBuilds) {
+def call(channel, buildType, apkURI) {
     def SLACK_APK_TEMPLATE = """<{1}|Planner-{0}>"""
+    def executedBuilds = [["${buildType}", "${apkURI}"]]
 
     if (!channel) {
         error('Missing channel to send message to')

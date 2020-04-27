@@ -25,12 +25,14 @@ def changelogsForEmail() {
 /*
  * Generate email content after build successed.
  *
- * @param {Array} executedBuilds, e.g. [['QA', 'https://applinks.com/qa.apk']]
+ * @param {String} buildType, e.g. "QA"
+ * @param {String} apkURI, e.g. "https://applinks.com/qa.apk"
  *
  * Dependencies:
  *     - BRANCH_NAME
  */
-def call(executedBuilds) {
+def call(buildType, apkURI) {
+    def executedBuilds = [["${buildType}", "${apkURI}"]]
     def EMAIL_LINK_TEMPLATE = "<a href=\"{1}\">{0}</a>"
 
     return """
