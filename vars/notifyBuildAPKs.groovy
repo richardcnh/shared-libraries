@@ -59,7 +59,7 @@ def changelogsForSlack(Integer maxLogCount = 9) {
  *     - BUILD_NUMBER
  */
 def call(channel, buildType, apkURI) {
-    def SLACK_APK_TEMPLATE = """<{1}|Planner-{0}>"""
+    def SLACK_APK_TEMPLATE = """<{1}|App-{0}>"""
     def executedBuilds = [["${buildType}", "${apkURI}"]]
 
     if (!channel) {
@@ -74,7 +74,7 @@ def call(channel, buildType, apkURI) {
             [
                 "mrkdwn_in": ["text"],
                 "color": "#36a64f",
-                "pretext": "App Build Succeeded!",
+                "pretext": "${buildType} App Build Succeeded!",
                 // "author_name": "Richard Cai",
                 // "title": "Here is change title",
                 // "title_link": "https://www.theknot.com",
