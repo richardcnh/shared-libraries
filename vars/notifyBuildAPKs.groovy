@@ -15,10 +15,11 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     def JIRA_TICKET_PATTERN = /([A-Z]{3,10}\-\d{4,})/
     def PIVOTAL_BASE_URL = 'https://www.pivotaltracker.com/story/show/'
     def JIRA_BASE_URL = 'https://theknotww.atlassian.net/browse/'
+    def GIT_COMMIT_BASE_URL = "https://github.com/tkww/Planner-Android/commit/"
 
     for (changeSet in currentBuild.changeSets) {
         for (entry in changeSet.items) {
-            def finalMessage = entry.msg
+            def finalMessage = "${entry.msg} by ${entry.author.displayName} (<${GIT_COMMIT_BASE_URL + entry.commitId}|${entry.commitId.substring(0, 7)}>)"
 
             if (finalMessage.find(PIVOTAL_TICKET_PATTERN)) {
                  finalMessage = finalMessage.replaceAll(PIVOTAL_TICKET_PATTERN, "<${PIVOTAL_BASE_URL}\$2|\$1>")
@@ -59,7 +60,7 @@ def changelogsForSlack(Integer maxLogCount = 9) {
  *     - BUILD_NUMBER
  */
 def call(channel, buildType, apkURI) {
-    def SLACK_APK_TEMPLATE = """<{1}|App-{0}>"""
+    def SLACK_APK_TEMPLATE = """<{1}|Download {0} App>"""
     def executedBuilds = [["${buildType}", "${apkURI}"]]
 
     if (!channel) {
@@ -76,9 +77,9 @@ def call(channel, buildType, apkURI) {
                 "color": "#36a64f",
                 "pretext": "${buildType} App Build Succeeded!",
                 // "author_name": "Richard Cai",
-                // "title": "Here is change title",
+                "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
-                // "text": "Here is description for this build",
+                "text": "${changelogsForSlack().join('\n')}",
                 "fields": [
                     [
                         "title": "App",
@@ -98,11 +99,6 @@ def call(channel, buildType, apkURI) {
                     [
                         "title": "Artifacts",
                         "value": "${reachTemplate(executedBuilds, SLACK_APK_TEMPLATE).join('\n')}",
-                        "short": true
-                    ],
-                    [
-                        "title": "Changes",
-                        "value": "${changelogsForSlack().join('\n')}",
                         "short": false
                     ]
                 ]
