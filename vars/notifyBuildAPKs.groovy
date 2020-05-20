@@ -8,6 +8,9 @@
  *
  * Dependencies
  *     - currentBuild
+ *     - REPO_NAME
+ *     - BRANCH_NAME
+ *     - BRANCH_NUMBER
  */
 def changelogsForSlack(Integer maxLogCount = 9) {
     def buffer = []
@@ -82,7 +85,7 @@ def call(channel, buildType, apkURI) {
                 "fields": [
                     [
                         "title": "App",
-                        "value": "Planner-Android",
+                        "value": "${env.REPO_NAME}",
                         "short": true
                     ],
                     [
