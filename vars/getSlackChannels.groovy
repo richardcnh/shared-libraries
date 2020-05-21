@@ -24,7 +24,7 @@ def call(String squadName) {
     }
 
     if (ALL_VALID_SQUADS.size() == channels.size()) {
-        squads << ANDROID_TEAM_SLACK_CHANNEL
+        channels << ANDROID_TEAM_SLACK_CHANNEL
     }
 
     return channels
