@@ -61,7 +61,8 @@ def changelogsForSlack(Integer maxLogCount = 9) {
  *     - BUILD_NUMBER
  */
 def call(channel, executedBuilds) {
-    def SLACK_APK_TEMPLATE = """<{1}|Download {0} App>"""
+    // def SLACK_APK_TEMPLATE = """<{1}|Download {0} App>"""
+    def SLACK_APK_TEMPLATE = """{0} App (<{1}| Download>)"""
     // def executedBuilds = [["${buildType}", "${apkURI}"]]
 
     if (!channel) {
