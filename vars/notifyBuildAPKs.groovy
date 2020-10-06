@@ -20,8 +20,9 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     def JIRA_BASE_URL = 'https://theknotww.atlassian.net/browse/'
 
     def sets = currentBuild.changeSets
-    if (sets.isEmptySet()) {
-        sets = currentBuild.previousFailedBuild.changeSets
+    def previousFailedBuild = currentBuild.previousFailedBuild
+    if (currentBuild.getNumber() == previousFailedBuild.getNumbers() + 1) {
+        sets.addAll(previousFailedBuild.changeSets)
     }
 
     for (changeSet in sets) {
