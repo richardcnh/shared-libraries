@@ -19,12 +19,19 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     def PIVOTAL_BASE_URL = 'https://www.pivotaltracker.com/story/show/'
     def JIRA_BASE_URL = 'https://theknotww.atlassian.net/browse/'
 
-    for (changeSet in currentBuild.changeSets) {
+    def sets = currentBuild.changeSets
+    def previousFailedBuild = currentBuild.previousFailedBuild
+
+    if (previousFailedBuild != null && currentBuild.getNumber() == previousFailedBuild.getNumber() + 1) {
+        sets.addAll(previousFailedBuild.changeSets)
+    }
+
+    for (changeSet in sets) {
         for (entry in changeSet.items) {
             def finalMessage = "${entry.msg} by ${entry.author.displayName} (<${changeSet.browser.url}commit/${entry.commitId}|${entry.commitId.substring(0, 7)}>)"
 
             if (finalMessage.find(PIVOTAL_TICKET_PATTERN)) {
-                 finalMessage = finalMessage.replaceAll(PIVOTAL_TICKET_PATTERN, "<${PIVOTAL_BASE_URL}\$2|\$1>")
+                finalMessage = finalMessage.replaceAll(PIVOTAL_TICKET_PATTERN, "<${PIVOTAL_BASE_URL}\$2|\$1>")
             }
 
             if (finalMessage.find(JIRA_TICKET_PATTERN)) {
