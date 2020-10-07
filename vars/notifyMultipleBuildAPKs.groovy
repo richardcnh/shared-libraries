@@ -22,7 +22,7 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     def sets = currentBuild.changeSets
     def previousFailedBuild = currentBuild.previousFailedBuild
 
-    if (previousFailedBuild != null && currentBuild.getNumber() == previousFailedBuild.getNumbers() + 1) {
+    if (previousFailedBuild != null && currentBuild.getNumber() == previousFailedBuild.getNumber() + 1) {
         sets.addAll(previousFailedBuild.changeSets)
     }
 
