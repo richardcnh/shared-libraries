@@ -10,10 +10,15 @@
  *     - BRANCH_NAME
  */
 def call(String branchName = '') {
+    def BRANCH_DEV_SHARED_PREFIX = 'dev-v'
     def BRANCH_DEV_PREFIX = 'dev-'
     def BRANCH_FEATURE_PREFIX = 'features/'
 
     branchName = branchName ?: env.BRANCH_NAME
+
+    if (branchName.startsWith(BRANCH_DEV_SHARED_PREFIX)) {
+        return ''
+    }
 
     if (branchName.startsWith(BRANCH_DEV_PREFIX)) {
         return branchName.substring(BRANCH_DEV_PREFIX.length())
