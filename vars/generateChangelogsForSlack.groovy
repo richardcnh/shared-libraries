@@ -12,12 +12,12 @@
  *     - BRANCH_NAME
  *     - BRANCH_NUMBER
  */
-def changelogs(Integer maxLogCount = 9) {
+def changelogsForSlack(Integer maxLogCount = 9) {
     def buffer = []
-    // def PIVOTAL_TICKET_PATTERN = /(\#(\d{9}))/
-    // def JIRA_TICKET_PATTERN = /([A-Z]{3,10}\-\d{4,})/
-    // def PIVOTAL_BASE_URL = 'https://www.pivotaltracker.com/story/show/'
-    // def JIRA_BASE_URL = 'https://theknotww.atlassian.net/browse/'
+    def PIVOTAL_TICKET_PATTERN = /(\#(\d{9}))/
+    def JIRA_TICKET_PATTERN = /([A-Z]{3,10}\-\d{4,})/
+    def PIVOTAL_BASE_URL = 'https://www.pivotaltracker.com/story/show/'
+    def JIRA_BASE_URL = 'https://theknotww.atlassian.net/browse/'
 
     def sets = currentBuild.changeSets
     def previousFailedBuild = currentBuild.previousFailedBuild
@@ -28,7 +28,20 @@ def changelogs(Integer maxLogCount = 9) {
 
     for (changeSet in sets) {
         for (entry in changeSet.items) {
-            buffer << "- ${entry.msg} by ${entry.author.displayName}"
+            def finalMessage = "${entry.msg} by ${entry.author.displayName} (<${changeSet.browser.url}commit/${entry.commitId}|${entry.commitId.substring(0, 7)}>)"
+
+            if (finalMessage.find(PIVOTAL_TICKET_PATTERN)) {
+                finalMessage = finalMessage.replaceAll(PIVOTAL_TICKET_PATTERN, "<${PIVOTAL_BASE_URL}\$2|\$1>")
+            }
+
+            if (finalMessage.find(JIRA_TICKET_PATTERN)) {
+                finalMessage = finalMessage.replaceAll(JIRA_TICKET_PATTERN, "<${JIRA_BASE_URL}\$1|\$1>")
+            }
+
+            // TODO: We will skip the commits without story id, if you don't want to do like that, just remove this line
+            // if(finalMessage == entry.msg) continue
+
+            buffer << finalMessage
         }
     }
 
@@ -48,5 +61,5 @@ def changelogs(Integer maxLogCount = 9) {
  *
  */
 def call() {
-    return "${changelogs().join('\n')}"
+    return "${changelogsForSlack().join('\n')}"
 }

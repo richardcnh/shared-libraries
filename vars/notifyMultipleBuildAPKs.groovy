@@ -30,7 +30,7 @@ def call(channel, executedBuilds) {
                 // "author_name": "Richard Cai",
                 "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
-                "text": "${generateChangelogs()}",
+                "text": "${generateChangelogsForSlack()}",
                 "fields": [
                     [
                         "title": "App",

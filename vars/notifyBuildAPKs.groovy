@@ -31,7 +31,7 @@ def call(channel, buildType, apkURI) {
                 // "author_name": "Richard Cai",
                 "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
-                "text": "${generateChangelogs()}",
+                "text": "${generateChangelogsForSlack()}",
                 "fields": [
                     [
                         "title": "App",
