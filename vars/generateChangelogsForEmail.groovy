@@ -34,5 +34,5 @@ def changelogsForEmail() {
  *
  */
 def call() {
-    return "${changelogsForSlack().join('\n')}"
+    return "${changelogsForEmail().join('\n')}"
 }
