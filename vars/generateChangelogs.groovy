@@ -27,7 +27,11 @@ def changelogs(Integer maxLogCount = 9) {
     }
 
     for (changeSet in sets) {
+        if (buffer.size() > maxLogCount) break
+
         for (entry in changeSet.items) {
+            if (buffer.size() > maxLogCount) break
+
             buffer << "- ${entry.msg} by ${entry.author.displayName}"
         }
     }

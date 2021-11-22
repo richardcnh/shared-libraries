@@ -27,7 +27,11 @@ def changelogsForSlack(Integer maxLogCount = 9) {
     }
 
     for (changeSet in sets) {
+        if (buffer.size() > maxLogCount) break
+
         for (entry in changeSet.items) {
+            if (buffer.size() > maxLogCount) break
+
             def finalMessage = "${entry.msg} by ${entry.author.displayName} (<${changeSet.browser.url}commit/${entry.commitId}|${entry.commitId.substring(0, 7)}>)"
 
             if (finalMessage.find(PIVOTAL_TICKET_PATTERN)) {
