@@ -27,7 +27,7 @@ def call(channel, buildType = "Debug") {
                 // "author_name": "Richard Cai",
                 "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
-                "text": "${generateChangelogsForSlack()}",
+                "text": "${generateChangelogsForSlack(20)}",
                 "fields": [
                     [
                         "title": "App Name",
@@ -47,7 +47,7 @@ def call(channel, buildType = "Debug") {
                     [
                         "title": "Build Type",
                         "value": "${buildType}",
-                        "short": false
+                        "short": true
                     ]
                 ]
             ]
