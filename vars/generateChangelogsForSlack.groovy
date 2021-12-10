@@ -12,7 +12,7 @@
  *     - BRANCH_NAME
  *     - BRANCH_NUMBER
  */
-def changelogsForSlack(Integer maxLogCount = 9) {
+def changelogsForSlack(Integer maxLogCount = 12) {
     def buffer = []
     def PIVOTAL_TICKET_PATTERN = /(\#(\d{9}))/
     def JIRA_TICKET_PATTERN = /([A-Z]{3,10}\-\d{4,})/
@@ -64,6 +64,6 @@ def changelogsForSlack(Integer maxLogCount = 9) {
  * Generate changelogs with JIRA & github links after build successed.
  *
  */
-def call() {
-    return "${changelogsForSlack().join('\n')}"
+def call(maxLogCount = 12) {
+    return "${changelogsForSlack(maxLogCount).join('\n')}"
 }
