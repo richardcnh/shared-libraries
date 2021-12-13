@@ -23,7 +23,7 @@ def call(channel, buildType = "Debug") {
             [
                 "mrkdwn_in": ["text"],
                 "color": "#36a64f",
-                "pretext": "App Build Succeeded!",
+                "pretext": "${buildType} App Build Succeeded!",
                 // "author_name": "Richard Cai",
                 "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
