@@ -12,7 +12,7 @@ def call(String squadName) {
     def SQUAD_SLACK_CHANNEL_TEMPLATE = "#sdc-mobile-{0}"
     def ANDROID_TEAM_SLACK_CHANNEL = "#android_planner_betas"
     def ALL_VALID_SQUADS = ['core', 'guest', 'local', 'registry']
-    def squads = ALL_VALID_SQUADS
+    def squads = []
     def channels = []
 
     if (squadName) {
@@ -23,8 +23,13 @@ def call(String squadName) {
         channels << SQUAD_SLACK_CHANNEL_TEMPLATE.replace("{0}", squad)
     }
 
-    // If all tk mobile squads are notified, we should also notify in the public notification channel.
-    if (ALL_VALID_SQUADS.size() == channels.size()) {
+    // // If all tk mobile squads are notified, we should also notify in the public notification channel.
+    // if (ALL_VALID_SQUADS.size() == channels.size()) {
+    //     channels << ANDROID_TEAM_SLACK_CHANNEL
+    // }
+
+    // If there is no specific channels to be notified, we should notify the public notification channel
+    if (channels.size() <= 0) {
         channels << ANDROID_TEAM_SLACK_CHANNEL
     }
 
