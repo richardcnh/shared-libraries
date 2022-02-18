@@ -1,20 +1,16 @@
 #!/usr/bin/env groovy
 
 /*
- * Send build message with APK links
+ * Send build message with new changelogs
  *
  * @param {String} channel, It indicates which Slack channel(s) you would like to post
- * @param {String} buildType, e.g. "QA"
- * @param {String} apkURI, e.g. "https://applinks.com/qa.apk"
+ * @param {String} buildType, It indicates current build type, such as Debug, Stg, Release.
  *
  * Dependencies:
  *     - BRANCH_NAME
  *     - BUILD_NUMBER
  */
-def call(channel, buildType, apkURI) {
-    def SLACK_APK_TEMPLATE = """<{1}|Download {0} App>"""
-    def executedBuilds = [["${buildType}", "${apkURI}"]]
-
+def call(channel, buildType = "Debug") {
     if (!channel) {
         error('Missing channel to send message to')
 
@@ -31,10 +27,10 @@ def call(channel, buildType, apkURI) {
                 // "author_name": "Richard Cai",
                 "title": "Changelogs",
                 // "title_link": "https://www.theknot.com",
-                "text": "${generateChangelogsForSlack()}",
+                "text": "${generateChangelogsForSlack(20)}",
                 "fields": [
                     [
-                        "title": "App",
+                        "title": "App Name",
                         "value": "${env.REPO_NAME}",
                         "short": true
                     ],
@@ -49,9 +45,9 @@ def call(channel, buildType, apkURI) {
                         "short": true
                     ],
                     [
-                        "title": "Artifacts",
-                        "value": "${reachTemplate(executedBuilds, SLACK_APK_TEMPLATE).join('\n')}",
-                        "short": false
+                        "title": "Build Type",
+                        "value": "${buildType}",
+                        "short": true
                     ]
                 ]
             ]

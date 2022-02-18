@@ -23,6 +23,7 @@ def call(String squadName) {
         channels << SQUAD_SLACK_CHANNEL_TEMPLATE.replace("{0}", squad)
     }
 
+    // If all tk mobile squads are notified, we should also notify in the public notification channel.
     if (ALL_VALID_SQUADS.size() == channels.size()) {
         channels << ANDROID_TEAM_SLACK_CHANNEL
     }
