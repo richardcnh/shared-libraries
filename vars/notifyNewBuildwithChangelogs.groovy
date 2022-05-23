@@ -48,6 +48,11 @@ def call(channel, buildType = "Debug") {
                         "title": "Build Type",
                         "value": "${buildType}",
                         "short": true
+                    ],
+                    [
+                        "title": "Artifacts",
+                        "value": "(To be a Tester in App Distribution to get the install link)",
+                        "short": false
                     ]
                 ]
             ]
