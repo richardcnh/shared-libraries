@@ -20,6 +20,9 @@ def call(String squadName) {
     }
 
     for (squad in squads) {
+        if (squad=='core'){
+            squad='platform'
+        }
         channels << SQUAD_SLACK_CHANNEL_TEMPLATE.replace("{0}", squad)
     }
 
@@ -32,6 +35,5 @@ def call(String squadName) {
     if (channels.size() <= 0) {
         channels << ANDROID_TEAM_SLACK_CHANNEL
     }
-
     return channels
 }
